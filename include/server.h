@@ -14,6 +14,8 @@ namespace agdyne {
         public:
             TCPServer(const int port);
             ~TCPServer();
+
+            virtual bool process() = 0;
         private:
             int sock_fd;
     };

@@ -9,6 +9,7 @@ namespace agdyne {
     class GraphServer: public TCPServer {
         public:
             GraphServer(const int port);
+            bool process();
         private:
             Graph graph;
     };

@@ -6,3 +6,7 @@ GraphServer::GraphServer(const int port): TCPServer(port) {
 
 //GraphServer::~GraphServer() {
 //}
+
+bool GraphServer::process() {
+    return true;
+}
