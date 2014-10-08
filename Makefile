@@ -4,7 +4,7 @@ NAME=agdyne
 SOPHIA_DIR=./deps/sophia/sophia/
 INCLUDES=-I$(SOPHIA_DIR) -I./include/
 LIBS=-L$(SOPHIA_DIR)
-LINKS=-v -lsophia
+LINKS=-lsophia
 
 %.o: ./src/%.cpp
 	$(CC) $(FLAGS) $(INCLUDES) -c $<

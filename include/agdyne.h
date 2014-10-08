@@ -2,9 +2,7 @@
 #include <exception>
 #include <string>
 
-extern "C" {
 #include "sophia.h"
-}
 
 namespace agdyne {
     typedef void* SOPHIA_ENV;
