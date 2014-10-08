@@ -1,4 +1,5 @@
-# agdyne (a graph database you never enjoy)
+# agdyne
+`(a graph database you never enjoy)`
 
 Capitalization intentional.
 
