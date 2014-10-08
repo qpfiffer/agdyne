@@ -1,4 +1,5 @@
 #pragma once
+#include <arpa/inet.h>
 #include <exception>
 #include <sys/socket.h>
 #include <unistd.h>
