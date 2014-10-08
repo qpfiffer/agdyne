@@ -2,14 +2,14 @@
 #include <exception>
 #include <string>
 
-#include "sophia.h"
+#include "server.h"
+#include "graph.h"
 
 namespace agdyne {
-    typedef void* SOPHIA_ENV;
-
-    class FailedToInit: public std::exception {
-        virtual const char *what() const throw() {
-            return "Failed to initialize Graph.";
-        }
+    class GraphServer: public TCPServer {
+        public:
+            GraphServer(const int port);
+        private:
+            Graph graph;
     };
 }

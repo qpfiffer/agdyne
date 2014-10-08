@@ -9,7 +9,7 @@ LINKS=-lsophia
 %.o: ./src/%.cpp
 	$(CC) $(FLAGS) $(INCLUDES) -c $<
 
-all: graph.o main.o
+all: graph.o server.o agdyne.o main.o
 	$(CC) $(FLAGS) $(INCLUDES) $(LIBS) -pthread -o $(NAME) $^ $(SOPHIA_DIR)libsophia.a $(LINKS)
 
 clean:

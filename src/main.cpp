@@ -1,11 +1,10 @@
 #include <iostream>
 
 #include "agdyne.h"
-#include "graph.h"
 
 using namespace agdyne;
 
 int main(int argc, char *argv[]) {
-    Graph graph;
+    GraphServer gServer(1978);
     return 0;
 }

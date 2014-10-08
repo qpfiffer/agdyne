@@ -1,9 +1,18 @@
 #pragma once
-#include "agdyne.h"
+#include <exception>
+#include "sophia.h"
 
 namespace agdyne {
     class Node;
+
+    typedef void* SOPHIA_ENV;
+
     class Graph {
+        class FailedToInit: public std::exception {
+            virtual const char *what() const throw() {
+                return "Failed to initialize Graph.";
+            }
+        };
         public:
             Graph();
             ~Graph();
