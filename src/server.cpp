@@ -2,10 +2,10 @@
 
 using namespace agdyne;
 
-TCPServer::TCPServer(const int port): sock_fd(-1) {
+TCPServer::TCPServer(const int port): _workers{0}, _sock_fd(-1) {
     // Thank you Based Beej
-    this->sock_fd = socket(PF_INET, SOCK_STREAM, 0);
-    if (this->sock_fd < 0) {
+    this->_sock_fd = socket(PF_INET, SOCK_STREAM, 0);
+    if (this->_sock_fd < 0) {
         FailedToInit ex;
         throw ex;
     }
@@ -16,14 +16,26 @@ TCPServer::TCPServer(const int port): sock_fd(-1) {
         .sin_addr.s_addr    = htonl(INADDR_LOOPBACK)
     };
 
-    int rc = ::bind(sock_fd, (struct sockaddr *)&hints, sizeof(hints));
+    int rc = ::bind(_sock_fd, (struct sockaddr *)&hints, sizeof(hints));
+    if (rc < 0) {
+        FailedToInit ex;
+        throw ex;
+    }
+
+    rc = ::listen(_sock_fd, 10);
     if (rc < 0) {
         FailedToInit ex;
         throw ex;
     }
 }
 
+void TCPServer::start() {
+}
+
+void TCPServer::work() {
+}
+
 TCPServer::~TCPServer() {
-    if (sock_fd != -1)
-        close(sock_fd);
+    if (_sock_fd != -1)
+        close(_sock_fd);
 }

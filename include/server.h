@@ -2,7 +2,10 @@
 #include <arpa/inet.h>
 #include <exception>
 #include <sys/socket.h>
+#include <thread>
 #include <unistd.h>
+
+#define DEFAULT_SERVER_THREAD_NUM 2
 
 namespace agdyne {
     class TCPServer {
@@ -15,8 +18,12 @@ namespace agdyne {
             TCPServer(const int port);
             ~TCPServer();
 
+            void start();
+            void work();
+
             virtual bool process() = 0;
         private:
-            int sock_fd;
+            std::thread *_workers[DEFAULT_SERVER_THREAD_NUM];
+            int _sock_fd;
     };
 }
