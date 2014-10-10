@@ -23,7 +23,8 @@ namespace agdyne {
 
             virtual bool process() = 0;
         private:
-            std::thread *_workers[DEFAULT_SERVER_THREAD_NUM];
+            void shutdown();
+            std::thread _workers[DEFAULT_SERVER_THREAD_NUM];
             int _sock_fd;
     };
 }
