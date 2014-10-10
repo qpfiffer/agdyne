@@ -11,11 +11,10 @@ TCPServer::TCPServer(const int port): _workers(), _sock_fd(-1) {
         throw ex;
     }
 
-    struct sockaddr_in hints = {
-        .sin_family         = AF_INET,
-        .sin_port           = htons(port),
-        .sin_addr.s_addr    = htonl(INADDR_LOOPBACK)
-    };
+    struct sockaddr_in hints = {0};
+    hints.sin_family         = AF_INET;
+    hints.sin_port           = htons(port);
+    hints.sin_addr.s_addr    = htonl(INADDR_LOOPBACK);
 
     int rc = ::bind(_sock_fd, (struct sockaddr *)&hints, sizeof(hints));
     if (rc < 0) {
