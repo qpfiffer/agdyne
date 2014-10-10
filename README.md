@@ -11,6 +11,7 @@ Capitalization intentional.
 
 ```bash
 git submodule init
+git submodule update
 pushd deps/sophia/
 make static
 popd

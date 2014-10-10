@@ -1,3 +1,6 @@
 [submodule "deps/sophia"]
 	path = deps/sophia
 	url = https://github.com/pmwkaa/sophia.git
+[submodule "deps/json11"]
+	path = deps/json11
+	url = https://github.com/dropbox/json11.git
