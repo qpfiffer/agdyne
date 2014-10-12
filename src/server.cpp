@@ -47,32 +47,3 @@ void TCPServer::start() {
     }
 
 }
-
-void TCPServer::work() {
-    ::printf("Thread started.\n");
-
-    bool quit = false;
-    while(!quit) {
-        struct sockaddr_in their_addr_in;
-        socklen_t their_addr_size;
-
-        their_addr_size = sizeof(their_addr_in);
-        int client_fd = ::accept(_sock_fd, (struct sockaddr *)&their_addr_in, &their_addr_size);
-        ::printf("Connection receieved.\n");
-
-        char magic = 0x00;
-        int rc = recv(client_fd, &magic, 1, 0);
-        if (rc == 0) // Socket closed.
-            close(client_fd);
-
-        switch (magic) {
-            case 0x40:
-                // Do something.
-            default:
-                close(client_fd);
-        }
-
-        close(client_fd);
-    }
-}
-

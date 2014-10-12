@@ -14,7 +14,7 @@ namespace agdyne {
             }
         };
         public:
-            Graph();
+            Graph(const std::string db_location);
             ~Graph();
             bool addNode(Node *node);
             void addEdge(Node *from, Node *to, const std::string &label);
@@ -24,6 +24,10 @@ namespace agdyne {
             void printNodes() const;
             void printSigmaGraphJS() const;
             void printCSV() const;
+
+            bool start_tx();
+            bool commit_tx();
+            bool abort_tx();
 
             // Helper stuff
             const size_t getNodeCount();

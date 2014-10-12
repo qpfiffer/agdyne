@@ -19,12 +19,11 @@ namespace agdyne {
             ~TCPServer();
 
             void start();
-            void work();
-
-            virtual bool process() = 0;
+            virtual void work() = 0;
         private:
             void shutdown();
             std::thread _workers[DEFAULT_SERVER_THREAD_NUM];
+        protected:
             int _sock_fd;
     };
 }
