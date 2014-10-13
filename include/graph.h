@@ -34,5 +34,6 @@ namespace agdyne {
             const size_t getEdgeCount();
         private:
             SOPHIA_ENV _sp_env;
+            void *_current_tx;
     };
 }

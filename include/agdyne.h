@@ -19,6 +19,8 @@ namespace agdyne {
             GraphServer(const int port, const std::string db_location);
             void work();
         private:
+            void process_binary(const int sock_fd);
+            void process_ascii(const int sock_fd, char first_byte);
             void return_ok(const int sock_fd);
             void return_err(const int sock_fd);
             Graph graph;

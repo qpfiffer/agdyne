@@ -29,12 +29,22 @@ Graph::~Graph() {
 }
 
 bool Graph::start_tx() {
-    int rc = sp_begin(_sp_env.db);
+    if (_current_tx)
+        return false;
+
+    void *tx = sp_begin(_sp_env);
+
+    if (!tx)
+        return false;
+    this->_current_tx = tx;
+    return true;
 }
 
 bool Graph::commit_tx() {
+    return false;
 }
 
 bool Graph::abort_tx() {
+    return false;
 }
 

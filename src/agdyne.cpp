@@ -16,6 +16,34 @@ void GraphServer::return_err(const int sock_fd) {
     ::write(sock_fd, (char *)AG_ERR, sizeof(AG_ERR));
 }
 
+void GraphServer::process_binary(const int client_fd) {
+    uint8_t buf[255] = {0};
+    int rc = recv(client_fd, &buf, 255, 0);
+    if (rc == 0)
+        close(client_fd);
+
+    /*
+    switch (magic) {
+        case AG_OK:
+            return_ok(client_fd);
+        case AG_START_TX:
+            return_err(client_fd);
+        case AG_COMMIT_TX:
+            return_err(client_fd);
+        case AG_ABORT_TX:
+            return_err(client_fd);
+        case AG_QUIT:
+            close(client_fd);
+        default:
+            return_err(client_fd);
+    }
+    */
+}
+
+void GraphServer::process_ascii(const int sock_fd, char first_byte) {
+    return_ok(sock_fd);
+}
+
 void GraphServer::work() {
     ::printf("Thread started.\n");
 
@@ -29,25 +57,18 @@ void GraphServer::work() {
         ::printf("Connection receieved.\n");
 
         while (true) {
-            char magic = 0xFF;
+            char magic = 0;
+            // magic >= 0x80 then we are in binary mode, otherwise
+            // we're just doing real queries in ASCII.
             int rc = recv(client_fd, &magic, 1, 0);
-            if (rc == 0) // Socket closed.
+            if (rc == 0 || magic < 0)
                 close(client_fd);
 
-            ::printf("Receieved %c\n", magic);
-            switch (magic) {
-                case AG_OK:
-                    return_ok(client_fd);
-                case AG_START_TX:
-                    return_err(client_fd);
-                case AG_COMMIT_TX:
-                    return_err(client_fd);
-                case AG_ABORT_TX:
-                    return_err(client_fd);
-                case AG_QUIT:
-                    close(client_fd);
-                default:
-                    return_err(client_fd);
+            ::printf("Received %c\n", magic);
+            if (magic >= 0x80) {
+                this->process_binary(client_fd);
+            } else {
+                this->process_ascii(client_fd, magic);
             }
         }
     }
