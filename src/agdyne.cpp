@@ -57,7 +57,7 @@ void GraphServer::work() {
         ::printf("Connection receieved.\n");
 
         while (true) {
-            char magic = 0;
+            uint8_t magic = 0;
             // magic >= 0x80 then we are in binary mode, otherwise
             // we're just doing real queries in ASCII.
             int rc = recv(client_fd, &magic, 1, 0);

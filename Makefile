@@ -1,16 +1,14 @@
-FLAGS=-std=c++0x -g3 -O0 -Wall
+FLAGS=-std=c++0x -g3 -O0 -Wall -Werror -pedantic
 CC=clang++
 NAME=agdyne
-SOPHIA_DIR=./deps/sophia/sophia/
-INCLUDES=-I$(SOPHIA_DIR) -I./include/
-LIBS=-L$(SOPHIA_DIR)
-LINKS=-lsophia
+LINKS=-loleg
+INCLUDES=-I./include/
 
 %.o: ./src/%.cpp
 	$(CC) $(FLAGS) $(INCLUDES) -c $<
 
 all: graph.o server.o agdyne.o main.o
-	$(CC) $(FLAGS) $(INCLUDES) $(LIBS) -pthread -o $(NAME) $^ $(SOPHIA_DIR)libsophia.a $(LINKS)
+	$(CC) $(FLAGS) $(INCLUDES) $(LIBS) -pthread -o $(NAME) $^ $(LINKS)
 
 clean:
 	rm *.o

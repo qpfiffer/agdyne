@@ -1,11 +1,8 @@
 #pragma once
 #include <exception>
-#include "sophia.h"
 
 namespace agdyne {
     class Node;
-
-    typedef void* SOPHIA_ENV;
 
     class Graph {
         class FailedToInit: public std::exception {
@@ -13,6 +10,7 @@ namespace agdyne {
                 return "Failed to initialize Graph.";
             }
         };
+
         public:
             Graph(const std::string db_location);
             ~Graph();
@@ -33,7 +31,6 @@ namespace agdyne {
             const size_t getNodeCount();
             const size_t getEdgeCount();
         private:
-            SOPHIA_ENV _sp_env;
-            void *_current_tx;
+            void *current_tx_;
     };
 }
